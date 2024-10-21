@@ -66,3 +66,18 @@ select * from employees where jobTitle != "Sales Representative";
 select * from customers;
 select customerName, country from customers where customerName like "%Toys%";
 
+
+
+# ------------------------------------------------------------------------------
+
+select customerName, country from customers order by country ASC;
+select customerName, country from customers order by country DESC;
+
+select customerName, country from customers order by country ASC limit 10;
+select customerName, country from customers order by country DESC limit 10;
+
+select customerName, country from customers limit 20;
+
+select customerName, country, creditLimit from customers where creditLimit > 100000 order by country limit 5;
+select customerName, country, creditLimit from customers where creditLimit > 100000 limit 5;
+
