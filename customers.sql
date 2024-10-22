@@ -21,10 +21,10 @@ CREATE TABLE IF NOT EXISTS customers (
     foreign key (salesRepEmployeeNumber) references employees (employeeNumber)    
 );
 
+
+
 ## DROP table customers;
 
 desc customers;
-
-
 
 select * from customers;
