@@ -15,7 +15,7 @@ update employees set reportsTo="1002" where jobTitle = "Sales Rep" and officeCod
 
 select * from employees where jobTitle != "Sales Rep" or officeCode="1";
 
-## ---- Exercises
+## -------------- Exercises 1 ---------------
 
 # 1. List the customers in the United States with a credit limit higher than $1000
 
@@ -68,7 +68,7 @@ select customerName, country from customers where customerName like "%Toys%";
 
 
 
-# ------------------------------------------------------------------------------
+# --------------- ORDER BY and LIMIT -------------------
 
 select customerName, country from customers order by country ASC;
 select customerName, country from customers order by country DESC;
@@ -81,3 +81,13 @@ select customerName, country from customers limit 20;
 select customerName, country, creditLimit from customers where creditLimit > 100000 order by country limit 5;
 select customerName, country, creditLimit from customers where creditLimit > 100000 limit 5;
 
+# ------------------- Exercise 2 -------------------------
+
+# 1. List the 5 most expensive products from the "Planes" product line
+select * from products where productLine="Planes" order by buyPrice Desc limit 5;
+
+# 2. Identify the products that are about to run out of stock (quantity in stock < 100)
+select productCode, productName, productLine,quantityInStock from products where quantityInStock<100;
+
+# 3. List 10 products in the "Motorcycles" category with the lowest buy price and more than 1000 units in stock
+select * from products where productLine="Motorcycles" and quantityInStock>1000 order by buyPrice asc limit 10;
