@@ -91,3 +91,28 @@ select productCode, productName, productLine,quantityInStock from products where
 
 # 3. List 10 products in the "Motorcycles" category with the lowest buy price and more than 1000 units in stock
 select * from products where productLine="Motorcycles" and quantityInStock>1000 order by buyPrice asc limit 10;
+
+#--------- Modifying Table Structure ---------
+
+# Adding new column 
+alter table employees add hiredOn date;
+desc employees;
+select * from employees;
+
+# Changing the type of a column
+alter table employees modify column hiredOn varchar(40);
+desc employees;
+select * from employees;
+
+# Renaming the column
+alter table employees rename column hiredOn to isHired;
+desc employees;
+select * from employees;
+
+# Removing column from the table
+alter table employees drop column isHired;
+desc employees;
+select * from employees;
+
+
+
