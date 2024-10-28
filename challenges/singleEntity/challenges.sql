@@ -59,7 +59,7 @@ having sum(priceEach*quantityOrdered) > 5000
 order by sum(priceEach*quantityOrdered);
 
 -- Group by 
-select * from payments;
+select count(*) from payments;
 select customerNumber, count(customerNumber) as `Number of Payments` from payments group by customerNumber;
 
 select sum(`Number of Payments`) from (
