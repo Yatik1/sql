@@ -52,9 +52,16 @@ select customerName,city from customers where salesRepEmployeeNumber is null;
 select concat(firstName,' ',lastName) as `Full Name` from employees where jobTitle like "%VP%" or jobTitle like "%Manager%";
 
 -- 15. Which orders have a value greater than $5,000?
-SELECT orderNumber,sum(priceEach*quantityOrdered)
+SELECT orderNumber,sum(priceEach*quantityOrdered) as `Values`
 from orderdetails
 group by orderNumber
 having sum(priceEach*quantityOrdered) > 5000
 order by sum(priceEach*quantityOrdered);
 
+-- Group by 
+select * from payments;
+select customerNumber, count(customerNumber) as `Number of Payments` from payments group by customerNumber;
+
+select sum(`Number of Payments`) from (
+	select customerNumber, count(customerNumber) as `Number of Payments` from payments group by customerNumber
+) as payment_counts;
