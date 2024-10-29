@@ -123,3 +123,75 @@ select sum(`Number of Payments`) from (
 ) as payment_counts;
 
 
+select count(*) as `Total number of payments` from payments;
+
+-- Find the total number of payment done by customer before "2004-10-28"
+select customerNumber, count(*) as `Number of payments` from payments where paymentDate<"2004-10-28" group by customerNumber;
+
+-- Determine the total number of units sold for each product
+select productCode,sum(quantityOrdered) as `sold units` from orderDetails group by productCode;
+
+-- Find the total amount paid by each customer payment before "2004-10-28"
+select customerNumber, sum(amount) as `Total amount` from payments where paymentDate<"2004-10-28" group by customerNumber;
+
+-- Find the total number of payment and total amount paid by each customer before "2004-10-28"
+select customerNumber, count(customerNumber) as `Number of payments`, sum(amount) as `Total Amount paid` from payments where paymentDate<"2004-10-28" group by customerNumber; 
+
+-- Modify the above query to also show the minimum, maximum and average payment value for each customer.
+select customerNumber, 
+	count(customerNumber) as `Number of payments`, 
+    sum(amount) as `Total Amount paid`,
+    max(amount) as `Maximum paid amount`,
+    min(amount) as `Minimum paid amount`,
+	avg(amount) as `Average Amount`
+from payments 
+where paymentDate<"2004-10-28" 
+group by customerNumber; 
+
+
+-- Sorting and Pagination
+
+-- Retrieve the customer number for 10 customers who made the highest total payment in 2004.
+select customerNumber, sum(amount) as `Total Payments`
+from payments
+where paymentDate<"2004-10-28"
+group by customerNumber
+order by `Total Payments` desc
+limit 10;
+
+-- offset
+select customerNumber from payments order by customerNumber desc;
+
+select customerNumber, amount
+from payments
+order by customerNumber desc
+limit 5
+offset 5;
+
+--  ----------------------- Mapping functions ---------------------------
+
+
+-- CONCAT and UCASE
+
+-- Display the full name of point of contact each customer in the United States in upper case, along with their phone number, sorted by alphabetical order of customer name.
+select concat(ucase(contactFirstName), " ", ucase(contactLastName)) as `Contact Name`, phone 
+from customers 
+where country="USA" 
+order by `Contact Name`;
+
+-- Display a paginated list of customers (sorted by customer name), with a country code column. The country is simply the first 3 letters in the country name, in lower case.
+select * from customers;
+
+select customerNumber, 
+	   customerName, 
+       lcase(substr(country,1,3)) as `countryCode` 
+from customers 
+order by customerName 
+limit 10;
+
+-- Display the list of the 5 most expensive products in the "Motorcycles" product line with their price (MSRP) rounded to dollars.
+select productCode,productName, round(MSRP) as `Rounded MSRP` 
+from products 
+where productLine="Motorcycles" 
+order by `Rounded MSRP` desc 
+limit 5;
