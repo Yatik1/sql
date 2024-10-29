@@ -128,6 +128,15 @@ select count(*) as `Total number of payments` from payments;
 -- Find the total number of payment done by customer before "2004-10-28"
 select customerNumber, count(*) as `Number of payments` from payments group by customerNumber;
 
+-- Determine the total number of units sold for each product
+select productCode,sum(quantityOrdered) as `sold units` from orderDetails group by productCode;
+
+-- Find the total amount paid by each customer payment before "2004-10-28"
+select customerNumber, sum(amount) as `Total amount` from payments where paymentDate<"2004-10-28" group by customerNumber;
+
+-- Find the total number of payment and total amount paid by each customer before "2004-10-28"
+select customerNumber, count(customerNumber) as `Number of payments`, sum(amount) as `Total Amount paid` from payments where paymentDate<"2004-10-28" group by customerNumber; 
+
 
 -- Modify the above query to also show the minimum, maximum and average payment value for each customer.
 
@@ -174,13 +183,3 @@ select concat(ucase(contactFirstName), " ", ucase(contactLastName)) as `Contact 
 from customers 
 where country="USA" 
 order by `Contact Name`;
-
--- Determine the total number of units sold for each product
-select productCode,sum(quantityOrdered) as `sold units` from orderDetails group by productCode;
-
--- Find the total amount paid by each customer payment before "2004-10-28"
-select customerNumber, sum(amount) as `Total amount` from payments where paymentDate<"2004-10-28" group by customerNumber;
-
--- Find the total number of payment and total amount paid by each customer before "2004-10-28"
-select customerNumber, count(customerNumber) as `Number of payments`, sum(amount) as `Total Amount paid` from payments where paymentDate<"2004-10-28" group by customerNumber; 
-
