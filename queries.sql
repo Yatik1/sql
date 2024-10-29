@@ -183,3 +183,21 @@ select concat(ucase(contactFirstName), " ", ucase(contactLastName)) as `Contact 
 from customers 
 where country="USA" 
 order by `Contact Name`;
+
+-- SUBSTRING and LCASE
+
+-- Display a paginated list of customers (sorted by customer name), with a country code column. The country is simply the first 3 letters in the country name, in lower case.
+select customerName, 
+	LCASE(SUBSTRING(country, 1, 3)) 
+    AS countryCode 
+    FROM customers ORDER BY customerName;
+    
+-- ROUND
+
+-- Display the list of the 5 most expensive products in the "Motorcycles" product line with their price (MSRP) rounded to dollars.
+select productName, 
+	ROUND(MSRP) AS salePrice 
+    FROM products 
+    WHERE productLine="Motorcycles" 
+    ORDER BY salePrice DESC 
+    LIMIT 5;
