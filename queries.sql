@@ -141,3 +141,24 @@ from payments
 where paymentDate<"2004-10-28" 
 group by customerNumber; 
 
+
+-- Sorting and Pagination
+
+-- Retrieve the customer number for 10 customers who made the highest total payment in 2004.
+
+select customerNumber, sum(amount) as `Total Payments`
+from payments
+where paymentDate<"2004-10-28"
+group by customerNumber
+order by `Total Payments` desc
+limit 10;
+
+-- offset
+
+select customerNumber from payments order by customerNumber desc;
+
+select customerNumber, amount
+from payments
+order by customerNumber desc
+limit 5
+offset 5;
