@@ -127,3 +127,17 @@ select count(*) as `Total number of payments` from payments;
 
 -- Find the total number of payment done by customer before "2004-10-28"
 select customerNumber, count(*) as `Number of payments` from payments group by customerNumber;
+
+
+-- Modify the above query to also show the minimum, maximum and average payment value for each customer.
+
+select customerNumber, 
+	count(customerNumber) as `Number of payments`, 
+    sum(amount) as `Total Amount paid`,
+    max(amount) as `Maximum paid amount`,
+    min(amount) as `Minimum paid amount`,
+	avg(amount) as `Average Amount`
+from payments 
+where paymentDate<"2004-10-28" 
+group by customerNumber; 
+
