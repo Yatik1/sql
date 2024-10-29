@@ -162,3 +162,25 @@ from payments
 order by customerNumber desc
 limit 5
 offset 5;
+
+--  ----------------------- Mapping functions ---------------------------
+
+
+-- CONCAT and UCASE
+
+-- Display the full name of point of contact each customer in the United States in upper case, along with their phone number, sorted by alphabetical order of customer name.
+
+select concat(ucase(contactFirstName), " ", ucase(contactLastName)) as `Contact Name`, phone 
+from customers 
+where country="USA" 
+order by `Contact Name`;
+
+-- Determine the total number of units sold for each product
+select productCode,sum(quantityOrdered) as `sold units` from orderDetails group by productCode;
+
+-- Find the total amount paid by each customer payment before "2004-10-28"
+select customerNumber, sum(amount) as `Total amount` from payments where paymentDate<"2004-10-28" group by customerNumber;
+
+-- Find the total number of payment and total amount paid by each customer before "2004-10-28"
+select customerNumber, count(customerNumber) as `Number of payments`, sum(amount) as `Total Amount paid` from payments where paymentDate<"2004-10-28" group by customerNumber; 
+
