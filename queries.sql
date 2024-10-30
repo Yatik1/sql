@@ -201,3 +201,25 @@ select productName,
     WHERE productLine="Motorcycles" 
     ORDER BY salePrice DESC 
     LIMIT 5;
+
+
+
+-- -------------------- Working with dates ---------------------------
+
+-- List the largest single payment done by every customer in the year 2004, ordered by the transaction value (highest to lowest).
+select 	customerNumber,
+		max(amount) as `Largest Single Payment`
+from payments 
+where year(paymentDate)="2004"
+group by customerNumber
+order by `Largest Single Payment` desc;
+
+
+-- Show the total payments received month by month for every year.
+select year(paymentDate) as paymentYear,
+       month(paymentDate) as paymentMonth,
+       round(sum(amount),2) as totalAmount
+from payments
+group by paymentYear, paymentMonth
+order by paymentYear, paymentMonth;
+
