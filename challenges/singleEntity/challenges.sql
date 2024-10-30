@@ -57,3 +57,48 @@ from orderdetails
 group by orderNumber
 having sum(priceEach*quantityOrdered) > 5000
 order by sum(priceEach*quantityOrdered);
+
+-- ----------------- Arithmetic Operations ------------------
+
+-- Display the product code, product name, buy price, sale price and profit margin percentage ((MSRP - buyPrice)*100/buyPrice) for the 10 products with the highest profit margin.
+-- Round the profit margin to 2 decimals.
+select * from products;
+
+select productCode, 
+	productName,
+    buyPrice, 
+    MSRP,  
+	ROUND(((MSRP-buyPrice)/buyPrice)*100,2) as `profit margin percentage`
+from products
+order by `profit margin percentage` desc
+limit 10;
+
+
+-- -------------------- Working with dates ---------------------------
+
+-- List the largest single payment done by every customer in the year 2004, ordered by the transaction value (highest to lowest).
+select 	customerNumber,
+		max(amount) as `Largest Single Payment`
+from payments 
+where year(paymentDate)="2004"
+group by customerNumber
+order by `Largest Single Payment` desc;
+
+
+-- Show the total payments received month by month for every year.
+select year(paymentDate) as paymentYear,
+       month(paymentDate) as paymentMonth,
+       round(sum(amount),2) as totalAmount
+from payments
+group by paymentYear, paymentMonth
+order by paymentYear, paymentMonth;
+
+-- ------------------------ DATE_FORMAT and FORMAT --------------------------------------
+
+-- For the above query, format the amount properly with a dollar symbol and comma separation (e.g $26,267.62), and also show the month as a string.
+select year(paymentDate) as `Payment Year`,
+       date_format(paymentDate,"%b") as `Payment Month`,
+       concat("$" , format(sum(amount),2)) as Revenue
+from payments
+group by `Payment Year`, `Payment Month`,month(paymentDate)
+order by `Payment Year`,month(paymentDate);
