@@ -223,3 +223,13 @@ from payments
 group by paymentYear, paymentMonth
 order by paymentYear, paymentMonth;
 
+-- ------------------------ DATE_FORMAT and FORMAT --------------------------------------
+
+-- For the above query, format the amount properly with a dollar symbol and comma separation (e.g $26,267.62), and also show the month as a string.
+select year(paymentDate) as `Payment Year`,
+       date_format(paymentDate,"%b") as `Payment Month`,
+       concat("$" , format(sum(amount),2)) as Revenue
+from payments
+group by `Payment Year`, `Payment Month`,month(paymentDate)
+order by `Payment Year`,month(paymentDate);
+
