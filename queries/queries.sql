@@ -223,6 +223,23 @@ from payments
 group by paymentYear, paymentMonth
 order by paymentYear, paymentMonth;
 
+
+-- ----------------- Arithmetic Operations ------------------
+
+-- Display the product code, product name, buy price, sale price and profit margin percentage ((MSRP - buyPrice)*100/buyPrice) for the 10 products with the highest profit margin.
+-- Round the profit margin to 2 decimals.
+select * from products;
+
+select productCode, 
+	productName,
+    buyPrice, 
+    MSRP,  
+	ROUND(((MSRP-buyPrice)/buyPrice)*100,2) as `profit margin percentage`
+from products
+order by `profit margin percentage` desc
+limit 10;
+
+
 -- ------------------------ DATE_FORMAT and FORMAT --------------------------------------
 
 -- For the above query, format the amount properly with a dollar symbol and comma separation (e.g $26,267.62), and also show the month as a string.
