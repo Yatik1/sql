@@ -24,3 +24,9 @@ group by c.customerName
 having c.customerName="Atelier graphique";
 
 
+-- 3. Report the total payments by date
+select paymentDate, sum(amount) as `Total Amount by Date`
+from payments
+group by paymentDate
+order by paymentDate;
+
