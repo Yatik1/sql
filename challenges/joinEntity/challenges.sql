@@ -5,3 +5,5 @@ select customerName, concat(e.firstName, " " , e.lastName) as `Account Represent
 from customers c
 inner join employees e
 on c.salesRepEmployeeNumber = e.employeeNumber;
+
+

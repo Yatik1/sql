@@ -58,18 +58,3 @@ group by orderNumber
 having sum(priceEach*quantityOrdered) > 5000
 order by sum(priceEach*quantityOrdered);
 
--- ----------------- Arithmetic Operations ------------------
-
--- Display the product code, product name, buy price, sale price and profit margin percentage ((MSRP - buyPrice)*100/buyPrice) for the 10 products with the highest profit margin.
--- Round the profit margin to 2 decimals.
-select * from products;
-
-select productCode, 
-	productName,
-    buyPrice, 
-    MSRP,  
-	ROUND(((MSRP-buyPrice)/buyPrice)*100,2) as `profit margin percentage`
-from products
-order by `profit margin percentage` desc
-limit 10;
-
