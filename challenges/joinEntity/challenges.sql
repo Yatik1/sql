@@ -35,3 +35,21 @@ select *
 from products
 where not exists (select orderDetails.productCode from orderDetails where products.productCode = orderDetails.productCode);
 
+-- 5. List the amount paid by each customer.
+
+select customers.customerNumber,customerName,round(sum(amount),2) from payments
+inner join customers
+on payments.customerNumber = customers.customerNumber
+group by customers.customerNumber, customerName
+order by customers.customerNumber;
+
+-- or 
+
+SELECT Orders.customerNumber, customerName , ROUND(SUM(Detail.quantityOrdered*Detail.priceEach),2) As 'Amount Paid'
+FROM Customers
+INNER JOIN Orders
+ON Customers.customerNumber = Orders.customerNumber
+INNER JOIN OrderDetails Detail
+on Orders.orderNumber = Detail.orderNumber
+GROUP BY Orders.customerNumber,customerName
+ORDER BY customers.customerNumber;
