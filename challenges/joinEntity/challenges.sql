@@ -30,3 +30,8 @@ from payments
 group by paymentDate
 order by paymentDate;
 
+-- 4. Report the products that have not been sold.
+select * 
+from products
+where not exists (select orderDetails.productCode from orderDetails where products.productCode = orderDetails.productCode);
+
